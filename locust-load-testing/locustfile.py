@@ -6,13 +6,15 @@ from utils.config_loader import load_test_config
 class ApiUser(HttpUser):
     tasks = [UserTasks]
     wait_time = between(load_test_config['min_wait'], load_test_config['max_wait'])
+
     def on_start(self):
-        # Initialize an instance of AuthTasks and perform login.
-        auth_tasks = AuthTasks(self.client)
-        auth_tasks.login()
+        # Perform login to acquire the token.
+        self.login()
 
-        # Optionally, check if the token was successfully acquired.
-        if not AuthManager.get_token():
-            # Handle the case where login failed, such as stopping this user.
-            self.stop(True)
-
+    def login(self):
+        credentials = {"username": "testuser", "password": "testpassword"}
+        with self.client.post("/login", json=credentials, catch_response=True) as response:
+            if response.status_code == 200:
+                AuthManager.set_token(response.json()['jwtToken'])
+            else:
+                print("Failed to log in")
