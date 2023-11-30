@@ -1,0 +1,4 @@
+staging:
+  base_url: "https://staging.example.com/api"
+production:
+  base_url: "https://production.example.com/api"

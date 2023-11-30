@@ -1,0 +1,9 @@
+endpoints:
+  login: "/login"
+  register: "/register"
+  verify_email: "/verify-email"
+  registration: "/RegistrationAsync"
+  users_get_all: "/UsersGetAllAsync"
+  user_role_get_all: "/UserRoleGetAllAsync"
+  user_create: "/UserCreateAsync"
+  user_update: "/UserUpdateAsync"
